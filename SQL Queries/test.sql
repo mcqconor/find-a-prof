@@ -1,0 +1,1 @@
+SELECT * from professors WHERE institution = 'University of Georgia';
