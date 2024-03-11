@@ -1,8 +1,8 @@
 ---
-const test_list = [1,2,3,4,5];
+
 const schoolListAPI = 'http://192.168.1.8:3000/school-list'
 
-function  makeAPICall() {
+function  makeSchoolAPICall() {
   return fetch(schoolListAPI)
     .then(response => response.json())
     .then(data => {
@@ -14,7 +14,7 @@ function  makeAPICall() {
     });
 }
 
-const result = await makeAPICall();
+const result = await makeSchoolAPICall();
 const schoolList = result.map(item => item.institution)
 console.log(schoolList)
 ---

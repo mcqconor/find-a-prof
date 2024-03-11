@@ -1,15 +1,17 @@
 ---
+import '../../scripts/makeSchoolAPICalls.js'
+import '../../scripts/getSchoolProfs.js'
+
 export async function getStaticPaths(){
-    
 
     function  makeSchoolAPICall() {
     return fetch('http://192.168.1.8:3000/school-list')
         .then(response => response.json())
         .then(data => {
-        return data; 
+            return data; 
         })
         .catch(error => {
-        throw error; 
+            throw error; 
         });
     }
 
@@ -17,10 +19,24 @@ export async function getStaticPaths(){
     const schoolList = result.map(item => item.institution)
 
     return schoolList.map((school) => {
-            const testNameList = ['Conor','Lauren','Alex']
+
+        // function  getSchoolProfs(school) {
+        //     return fetch(`http://192.168.1.8:3000/professors/school/${school}`)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //         return data; 
+        //         })
+        //         .catch(error => {
+        //         throw error; 
+        //         });
+        //     }
+
+            const profNames = ['Conor','Lauren','Declan'];
+            // console.log(typeof(testNameList))
+            // const profNames = testNameList.map((item) => item.profName);
             return {
                 params: {institution: school},
-                props: {profs:testNameList},
+                props: {profs:profNames},
             };
         });
 
