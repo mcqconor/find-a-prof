@@ -1,0 +1,46 @@
+---
+export async function getStaticPaths(){
+    
+
+    function  makeSchoolAPICall() {
+    return fetch('http://192.168.1.8:3000/school-list')
+        .then(response => response.json())
+        .then(data => {
+        return data; 
+        })
+        .catch(error => {
+        throw error; 
+        });
+    }
+
+    const result = await makeSchoolAPICall();
+    const schoolList = result.map(item => item.institution)
+
+    return schoolList.map((school) => {
+            const testNameList = ['Conor','Lauren','Alex']
+            return {
+                params: {institution: school},
+                props: {profs:testNameList},
+            };
+        });
+
+}
+
+const { institution } = Astro.params;
+const { profs } = Astro.props;
+---
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Schools</title>
+	</head>
+	<body>
+		<h1>{institution} Home Page</h1>
+        <ul>
+            {profs.map((prof) => <li>{prof}</li>)}
+        </ul>
+	</body>
+</html>

@@ -1,16 +1,14 @@
-var mysql = require('mysql');
+const schoolListAPI = 'localhost:3000/school-list'
 
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "password",
-    database: "professorswork"
-  });
-  
-  con.connect(function(err) {
-    if (err) throw err;
-    con.query("SELECT * FROM professors WHERE profName = 'Matthew Lassiter'", function (err, results, fields){
-      if (err) throw err;
-      console.log(results);
-    });
-  });
+fetch(schoolListAPI)
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('oopsie whoopsie');
+    }
+  })
+.then(data => {
+  console.log(data);
+})
+.catch(error => {
+  console.error('Error: ', error);
+});

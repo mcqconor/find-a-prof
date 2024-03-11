@@ -1,7 +1,5 @@
 ---
-const test_list = [1,2,3,4,5];
 const schoolListAPI = 'http://192.168.1.8:3000/school-list'
-
 function  makeAPICall() {
   return fetch(schoolListAPI)
     .then(response => response.json())
@@ -16,7 +14,6 @@ function  makeAPICall() {
 
 const result = await makeAPICall();
 const schoolList = result.map(item => item.institution)
-console.log(schoolList)
 ---
 
 <html lang="en">
@@ -25,15 +22,12 @@ console.log(schoolList)
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Schools</title>
 	</head>
 	<body>
-		<h1>Hello World, just making sure this works still</h1>
-		<p>AAAAAAAAAAAAAAAAAAAAAh</p>
-		<p>list of numbers</p>
-		<ul>{schoolList.map(school => <li>{school}</li>)}</ul>
+		<h1>Schools Home Page</h1>
+		<div class = 'institution'>
+            {schoolList.map(school => <p><a href={`/institutions/${school}`}>{school}</a></p>)}
+        </div>
 	</body>
-	<script>
-		
-	</script>
 </html>

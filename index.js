@@ -1,8 +1,14 @@
 const express = require('express');
 var mysql = require('mysql');
 const app = express();
+const cors = require("cors");
+
+const corsOptions = {
+    origin: "http://localhost:4321"
+}
 
 app.use(express.json());
+app.use(cors(corsOptions))
 
 const port = process.env.PORT || 3000;
 
@@ -28,7 +34,7 @@ app.listen(port, () => {
 
 app.get("/professors/school/:school", (request, response) => {
 
-    query_result = con.query(`SELECT * FROM professors WHERE institution = '${request.params['school']}'`, (err,results) => {
+    query_result = con.query(`SELECT profName FROM professors WHERE institution = '${request.params['school']}'`, (err,results) => {
         if (err){
             console.error('Query Error: ', err);
             response.status(500).json({error: 'Server Error'});
