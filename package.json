@@ -11,6 +11,19 @@
   },
   "dependencies": {
     "astro": "^4.4.15",
+    "express": "^4.18.3",
     "mysql": "^2.18.1"
-  }
+  },
+  "description": "```sh npm create astro@latest -- --template minimal ```",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcqconor/find-a-prof.git"
+  },
+  "author": "Conor McQuiston",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mcqconor/find-a-prof/issues"
+  },
+  "homepage": "https://github.com/mcqconor/find-a-prof#readme"
 }
