@@ -25,7 +25,8 @@ const schoolList = result.map(item => item.institution)
 		<title>Schools</title>
 	</head>
 	<body>
-		<h1>Schools Home Page</h1>
+		<h1>Currently available schools</h1>
+    <p><a href='/'>Return to the home page if you dare </a></p>
 		<div class = 'institution'>
             {schoolList.map(school => <p><a href={`/institutions/${school}`}>{school}</a></p>)}
         </div>

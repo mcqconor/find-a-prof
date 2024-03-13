@@ -1,7 +1,4 @@
 ---
-import '../../scripts/makeSchoolAPICalls.js'
-import '../../scripts/getSchoolProfs.js'
-
 export async function getStaticPaths(){
 
     function  makeSchoolAPICall() {
@@ -15,28 +12,28 @@ export async function getStaticPaths(){
         });
     }
 
-    const result = await makeSchoolAPICall();
-    const schoolList = result.map(item => item.institution)
+    function makeProfAPICall(){
+        return fetch('http://192.168.1.8:3000/professors/school')
+        .then(response => response.json())
+        .then(data => {
+            return data; 
+        })
+        .catch(error => {
+            throw error; 
+        });
+    }
+
+    const schoolResult = await makeSchoolAPICall();
+    const schoolList = schoolResult.map(item => item.institution);
+
+    const profResult = await makeProfAPICall();
 
     return schoolList.map((school) => {
 
-        // function  getSchoolProfs(school) {
-        //     return fetch(`http://192.168.1.8:3000/professors/school/${school}`)
-        //         .then(response => response.json())
-        //         .then(data => {
-        //         return data; 
-        //         })
-        //         .catch(error => {
-        //         throw error; 
-        //         });
-        //     }
-
-            const profNames = ['Conor','Lauren','Declan'];
-            // console.log(typeof(testNameList))
-            // const profNames = testNameList.map((item) => item.profName);
+            const profNames = profResult.filter((prof) => prof.institution === school);
             return {
                 params: {institution: school},
-                props: {profs:profNames},
+                props: {profs:profNames}
             };
         });
 
@@ -55,8 +52,9 @@ const { profs } = Astro.props;
 	</head>
 	<body>
 		<h1>{institution} Home Page</h1>
+        <p><a href="/institutions">See all schools here</a></p>
         <ul>
-            {profs.map((prof) => <li>{prof}</li>)}
+            {profs.map((prof) => <li><a href={`/professors/${prof.id}`}>{prof.profName}</a></li>)}
         </ul>
 	</body>
 </html>

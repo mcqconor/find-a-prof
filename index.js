@@ -32,9 +32,9 @@ app.listen(port, () => {
     console.log("Server listening on PORT:",port);
 });
 
-app.get("/professors/school/:school", (request, response) => {
+app.get("/professors/school", (request, response) => {
 
-    query_result = con.query(`SELECT profName FROM professors WHERE institution = '${request.params['school']}'`, (err,results) => {
+    query_result = con.query(`SELECT id, profName, institution FROM professors`, (err,results) => {
         if (err){
             console.error('Query Error: ', err);
             response.status(500).json({error: 'Server Error'});

@@ -1,22 +1,4 @@
 ---
-
-const schoolListAPI = 'http://192.168.1.8:3000/school-list'
-
-function  makeSchoolAPICall() {
-  return fetch(schoolListAPI)
-    .then(response => response.json())
-    .then(data => {
-      // Do something with the JSON data
-      return data; // You can return the data if needed
-    })
-    .catch(error => {
-      throw error; // Rethrow the error to handle it further
-    });
-}
-
-const result = await makeSchoolAPICall();
-const schoolList = result.map(item => item.institution)
-console.log(schoolList)
 ---
 
 <html lang="en">
@@ -31,7 +13,7 @@ console.log(schoolList)
 		<h1>Hello World, just making sure this works still</h1>
 		<p>AAAAAAAAAAAAAAAAAAAAAh</p>
 		<p>list of numbers</p>
-		<ul>{schoolList.map(school => <li>{school}</li>)}</ul>
+		<p><a href='/institutions/'>Peruse the schools I have scraped and available</a></p>
 	</body>
 	<script>
 		

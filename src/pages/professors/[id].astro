@@ -1,0 +1,87 @@
+---
+export async function getStaticPaths(){
+
+    function makeProfAPICall(){
+        return fetch('http://192.168.1.8:3000/professors/school')
+        .then(response => response.json())
+        .then(data => {
+            return data; 
+        })
+        .catch(error => {
+            throw error; 
+        });
+    }
+
+    const profResult = await makeProfAPICall();
+
+    return profResult.map((prof) => {
+
+                        return {
+                params: {id: prof.id},
+                props: {name: prof.profName}
+            };
+        });
+
+    }
+
+const { id } = Astro.params;
+const { name } = Astro.props;
+
+const profInfo = await fetch(`http://192.168.1.8:3000/professors/id/${id}`)
+    .then(response => response.json())
+        .then(data => {
+            return data; 
+        })
+        .catch(error => {
+            throw error; 
+        });
+
+//For some reason this is breaking and returning undefined
+const profOpenLib = await fetch(`https://openlibrary.org/search/authors.json?q=${profInfo[0].profName}`)
+    .then(response => {
+        return response.json();
+    })
+    .then(data => {
+        let authorKey;
+        
+        if (typeof data === 'undefined'){
+            authorKey = 'OL4808400A';
+        } else {
+            authorKey = data.docs[0].key;
+        }
+        
+        return fetch(`https://openlibrary.org/authors/${authorKey}/works.json`);
+
+    })
+    .then(worksData => {
+        return worksData.json()
+    })
+    .then(finalResult => {
+        if (finalResult.entries[0].title === 'The Great Gatsby') {
+            return ['No Books Detected'];
+        } else {
+            return finalResult.entries
+        }
+    })
+    .catch(error => {
+        throw error;
+    });
+---
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Schools</title>
+</head>
+<body>
+    <h1>{name}</h1>
+    <p>{profInfo[0].titles} at {profInfo[0].institution}. Find their school bio <a href={profInfo[0].profLink}>here</a></p>
+    <p><a href={`/institutions/${profInfo[0].institution}`}>Return to school page</a></p>
+    <p>Some of the Books we've found by them are:</p>
+    <ul>
+        {profOpenLib.map((entry => <li>{entry.title}</li>))}
+    </ul>
+</body>
+</html>

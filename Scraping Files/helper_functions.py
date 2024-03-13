@@ -26,3 +26,9 @@ def find_duke_focus(whole_set, tag, class_name):
         return('')
     else:
         return(whole_set.find(tag,{'class':class_name}).text)
+    
+def clean_ou_names(whole_set, tag):
+    if whole_set.find(tag) is None:
+        return('')
+    else:
+        return(whole_set.find(tag).text)

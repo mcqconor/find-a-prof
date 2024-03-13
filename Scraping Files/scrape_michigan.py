@@ -33,4 +33,4 @@ for aoi in areas_of_interest:
 prof_info['specialties'] = specialties
 prof_info['institution'] = 'University of Michigan'
 df=pd.DataFrame.from_dict(prof_info)
-df.to_sql('professors', engine, if_exists='append', index=False)
+# df.to_sql('professors', engine, if_exists='append', index=False)
