@@ -1,0 +1,52 @@
+html {
+    background-color: #dde6ef;
+    font-family: sans-serif;
+}
+
+.institution-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 300px);
+    grid-auto-rows: auto;    
+    grid-gap: 1rem;
+}
+
+.institution-card {
+    border: 2px solid #000000;
+    border-radius: 12px;
+    padding: .5rem;   
+    background-color: #FFFFFF; 
+    display: flex;
+    align-items: center;
+    box-shadow: 3px 3px 3px rgb(164, 164, 164);
+    transition: background-color 0.6s ease;
+}
+
+.institution-card img {
+    max-height: 50px;
+    margin-right: 20px;
+}
+
+.institution-card p {
+    margin-left: auto;
+    margin-right: 15px;
+    font-weight: bold;
+    color: #000000;
+}
+
+.institution-card-link {
+    text-decoration: none;
+    color: black;
+  }
+
+.institution-card-link:hover{
+    color: white;
+}
+
+.institution-card:hover p{
+    color: white;
+    transition:color 0.1s ease;
+}
+
+.institution-card:hover{
+    background-color: rgb(249, 213, 146);
+}

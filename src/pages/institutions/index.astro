@@ -1,14 +1,15 @@
 ---
+import '../../styles/global.css'
+
 const schoolListAPI = 'http://192.168.1.8:3000/school-list'
 function  makeAPICall() {
   return fetch(schoolListAPI)
     .then(response => response.json())
     .then(data => {
-      // Do something with the JSON data
-      return data; // You can return the data if needed
+      return data; 
     })
     .catch(error => {
-      throw error; // Rethrow the error to handle it further
+      throw error;
     });
 }
 
@@ -27,8 +28,15 @@ const schoolList = result.map(item => item.institution)
 	<body>
 		<h1>Currently available schools</h1>
     <p><a href='/'>Return to the home page if you dare </a></p>
-		<div class = 'institution'>
-            {schoolList.map(school => <p><a href={`/institutions/${school}`}>{school}</a></p>)}
-        </div>
+    <div class = 'institution-cards'>
+            {schoolList.map(school => {
+              return <a class='institution-card-link' href={`/institutions/${school}`}>
+                <div class="institution-card">
+                  <img src={`../src/logos/${school}.png`}>
+                  <p>{school}</p>
+                </div>
+            </a>
+            })}
+    </div>
 	</body>
 </html>

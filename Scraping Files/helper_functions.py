@@ -32,3 +32,9 @@ def clean_ou_names(whole_set, tag):
         return('')
     else:
         return(whole_set.find(tag).text)
+    
+def get_links(whole_set, tag, prefix=''):
+    if whole_set.find(tag) is None:
+        return('')
+    else:
+        return(''.join([prefix,whole_set.find(tag, href=True)['href']]))

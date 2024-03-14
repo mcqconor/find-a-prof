@@ -42,9 +42,10 @@ const profOpenLib = await fetch(`https://openlibrary.org/search/authors.json?q=$
         return response.json();
     })
     .then(data => {
+        console.log(data);
         let authorKey;
         
-        if (typeof data === 'undefined'){
+        if (data.docs.length === 0){
             authorKey = 'OL4808400A';
         } else {
             authorKey = data.docs[0].key;
